@@ -1,12 +1,12 @@
 import re
 from django.conf import settings
 from rest_framework import serializers
-from ranker.common.utils import (
+from tutor_khata.common.utils import (
     twilio_verification,
 )
-from ranker.users.models import User
-from ranker.users.mixins import UserAvatarLinkSerializerMixin
-from ranker.level_titles.serializers import LevelTitleSerializer
+from tutor_khata.users.models import User
+from tutor_khata.users.mixins import UserAvatarLinkSerializerMixin
+from tutor_khata.level_titles.serializers import LevelTitleSerializer
 
 
 class ProfileSerializer(

@@ -1,7 +1,7 @@
 from django.urls import reverse
 from rest_framework import serializers
 from drf_spectacular.utils import extend_schema_field, inline_serializer
-from ranker.level_titles.serializers import LevelTitleSerializer
+from tutor_khata.level_titles.serializers import LevelTitleSerializer
 from .models import User
 from .mixins import UserAvatarLinkSerializerMixin
 

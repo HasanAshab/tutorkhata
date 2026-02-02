@@ -23,7 +23,7 @@ def generate_username(
     separators: Optional[list[str]] = ["", "-", "_"],
     max_attempts: Optional[int] = settings.USERNAME_GENERATION_MAX_ATTEMPTS,
 ) -> Optional[str]:
-    from ranker.users.models import User
+    from tutor_khata.users.models import User
 
     prefix = prefix if prefix else faker.word()
     for _ in range(max_attempts):

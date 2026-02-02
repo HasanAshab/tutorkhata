@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework.test import (
     APITestCase,
 )
-from ranker.users.factories import (
+from tutor_khata.users.factories import (
     UserFactory,
 )
 
@@ -25,7 +25,7 @@ class PhoneNumberTestCase(APITestCase):
             status.HTTP_401_UNAUTHORIZED,
         )
 
-    @patch("ranker.common.utils.twilio_verification.send_through_sms")
+    @patch("tutor_khata.common.utils.twilio_verification.send_through_sms")
     def test_update_phone_number_without_otp(self, mocked_verification_sender):
         phone_number = "+15005550006"
 
@@ -41,7 +41,7 @@ class PhoneNumberTestCase(APITestCase):
         self.assertEqual(self.user.phone_number, "")
         mocked_verification_sender.assert_called_once_with(phone_number)
 
-    @patch("ranker.common.utils.twilio_verification.is_valid")
+    @patch("tutor_khata.common.utils.twilio_verification.is_valid")
     def test_update_phone_number_with_valid_otp(
         self, mocked_verification_checker
     ):
@@ -61,7 +61,7 @@ class PhoneNumberTestCase(APITestCase):
         self.assertEqual(self.user.phone_number, phone_number)
         mocked_verification_checker.assert_called_once_with(phone_number, otp)
 
-    @patch("ranker.common.utils.twilio_verification.is_valid")
+    @patch("tutor_khata.common.utils.twilio_verification.is_valid")
     def test_update_phone_number_with_invalid_otp(
         self, mocked_verification_checker
     ):

@@ -4,8 +4,8 @@ from rest_framework import status
 from rest_framework.test import (
     APITestCase,
 )
-from ranker.users.models import User
-from ranker.users.factories import (
+from tutor_khata.users.models import User
+from tutor_khata.users.factories import (
     UserFactory,
 )
 

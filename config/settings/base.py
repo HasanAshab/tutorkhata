@@ -60,35 +60,20 @@ THIRD_PARTY_APPS = [
     "django_filters",
     "django_extensions",
     "phonenumber_field",
-    "colorfield",
     "rest_framework",
     "rest_framework.authtoken",
     "drf_spectacular",
-    "drf_standardized_response",
-    "drf_standardized_errors",
-    "drf_pagination_meta_wrap",
-    "knox",
     "allauth",
     "allauth.account",
-    "allauth.socialaccount",
-    "allauth.mfa",
     "allauth.headless",
-    "allauth.socialaccount.providers.google",
-    "allauth.socialaccount.providers.facebook",
-    "allauth.socialaccount.providers.twitter",
 ]
 
 LOCAL_APPS = [
     "command_scheduler",
-    "ranker.common",
-    "ranker.docs",
-    "ranker.authentication",
-    "ranker.accounts",
-    "ranker.users",
-    "ranker.recent_searches",
-    "ranker.level_titles",
-    "ranker.difficulties",
-    "ranker.challenges",
+    "tutor_khata.common",
+    "tutor_khata.docs",
+    "tutor_khata.accounts",
+    "tutor_khata.users",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -124,6 +109,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -132,7 +118,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 # Mail
-DEFAULT_FROM_EMAIL = "ranker.noreply@gmail.com"
+DEFAULT_FROM_EMAIL = "tutor_khata.noreply@gmail.com"
 
 # User Model
 AUTH_USER_MODEL = "users.UserModel"
@@ -206,26 +192,17 @@ REST_FRAMEWORK = {
     # API Versioning
     "DEFAULT_VERSION": "v1",
     "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.AcceptHeaderVersioning",
-    # Auth
-    "DEFAULT_AUTHENTICATION_CLASSES": ("knox.auth.TokenAuthentication",),
-    # Exception
-    "EXCEPTION_HANDLER": "drf_standardized_errors.handler.exception_handler",
-    # Response
-    "DEFAULT_RENDERER_CLASSES": (
-        "drf_standardized_response.renderers.StandardizedJSONRenderer",
-    ),
+
     # Pagination
     "PAGE_SIZE": 15,
     # Test
     "TEST_REQUEST_DEFAULT_FORMAT": "json",
-    # Docs
-    "DEFAULT_SCHEMA_CLASS": "ranker.docs.openapi.AutoSchema",
 }
 
 # Api Docs
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Ranker",
-    "DESCRIPTION": "The api documentation of Ranker-API",
+    "TITLE": "Tutor Khata",
+    "DESCRIPTION": "The api documentation of Tutor Khata API",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
     "EXTERNAL_DOCS": {
@@ -233,31 +210,7 @@ SPECTACULAR_SETTINGS = {
         "description": "Authentication",
     },
     "SCHEMA_PATH_PREFIX": r"/api/",
-    "ENUM_NAME_OVERRIDES": {
-        "ValidationErrorEnum": "drf_standardized_errors.openapi_serializers.ValidationErrorEnum.choices",
-        "ClientErrorEnum": "drf_standardized_errors.openapi_serializers.ClientErrorEnum.choices",
-        "ServerErrorEnum": "drf_standardized_errors.openapi_serializers.ServerErrorEnum.choices",
-        "ErrorCode401Enum": "drf_standardized_errors.openapi_serializers.ErrorCode401Enum.choices",
-        "ErrorCode403Enum": "drf_standardized_errors.openapi_serializers.ErrorCode403Enum.choices",
-        "ErrorCode404Enum": "drf_standardized_errors.openapi_serializers.ErrorCode404Enum.choices",
-        "ErrorCode405Enum": "drf_standardized_errors.openapi_serializers.ErrorCode405Enum.choices",
-        "ErrorCode406Enum": "drf_standardized_errors.openapi_serializers.ErrorCode406Enum.choices",
-        "ErrorCode415Enum": "drf_standardized_errors.openapi_serializers.ErrorCode415Enum.choices",
-        "ErrorCode429Enum": "drf_standardized_errors.openapi_serializers.ErrorCode429Enum.choices",
-        "ErrorCode500Enum": "drf_standardized_errors.openapi_serializers.ErrorCode500Enum.choices",
-    },
-    "POSTPROCESSING_HOOKS": (
-        "drf_standardized_errors.openapi_hooks.postprocess_schema_enums",
-    ),
 }
-
-# Knox (For Auth Token Management)
-REST_KNOX = {
-    "TOKEN_TTL": timedelta(days=20),
-    "AUTH_HEADER_PREFIX": "Bearer",
-}
-KNOX_TOKEN_MODEL = "knox.AuthToken"
-
 
 # All-Auth
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
@@ -267,35 +220,42 @@ ACCOUNT_CHANGE_EMAIL = True
 ACCOUNT_EMAIL_NOTIFICATIONS = True
 ACCOUNT_USERNAME_MIN_LENGTH = 3
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
-MFA_TOTP_ISSUER = "Ranker"
-SOCIALACCOUNT_PROVIDERS = {
-    "google": {
-        "APP": {
-            "client_id": env("GOOGLE_CLIENT_ID"),
-            "secret": env("GOOGLE_CLIENT_SECRET"),
-            "key": "",
-        },
-        "SCOPE": ["profile", "email", "name"],
-    },
-    "facebook": {
-        "APP": {
-            "client_id": env("FACEBOOK_CLIENT_ID"),
-            "secret": env("FACEBOOK_CLIENT_SECRET"),
-            "key": "",
-        },
-    },
-    "twitter": {
-        "APP": {
-            "client_id": env("TWITTER_CLIENT_ID"),
-            "secret": env("TWITTER_CLIENT_SECRET"),
-            "key": "",
-        },
-    },
-}
+# MFA_TOTP_ISSUER = "Tutor Khata"
+
 # All-Auth : Headless
-FRONTEND_BASE_URL = "https://ranker.com"
+HEADLESS_JWT_PRIVATE_KEY = """
+-----BEGIN PRIVATE KEY-----
+MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDcQzTiiPurrlbJ
+coP8crbl0HLBvZFpbo2X0N+qQfa6HXWmoybl1DreHaqaXuo4tU+7nQ0jel2Lr/3K
+N/vcD/D8SAFyBDL9OZyDVUtIjML45kozPopKEC3j2T12oGhN33IOsB/H6EZF04it
+aLSP0ZYhMfpxzuHZosrkHD1mdq8daFDkr+Ht3+Zw5nEPJepOESOa6OqW7YPk3EG1
+Qgc8H7xPWDHXen890ZQbNVjlNkeu03rXcf2AAgQzK2XBmJbpzzoTJFPEG6COrRjC
+WUFmQ02WHQuKRULMklX3tGuU0GdF69NERL1UBjg+Wdrgnu6gBKx3r6+nmFP5/pvb
+U8L5FINzAgMBAAECggEAS+JBjYw4/HBPSQ7RZv9UgL98UcAQIV0rnfKhpAQezwcI
+OfU6mPKxp0VcOdvaYNgiVJYqaR8mrFHhIzJ/bFT3psrd6JyGvpQDFoIjsiaAo4Sf
+aqEwvoxtavK0iLKBzNZe8q19/X7J+xOCIpAQqP3BdcVErcHjMHoz4TvTcYIRGZVr
+rgVvNeTbDVCAjT/GLY9zOQGdH0lJB2IuPdm/tZWsC+HzgRHvGnH4HqrtaAYfKHbN
+3kEr9mGCxuJaJXPoPpbfrfTH/+1pEv2dqVd1yvK/kBiVhlf5lGzU9bobyG54gmLH
+vNicNzIMuNEsiErGuK/fUPbdrC4DA107LQSDjH5xBQKBgQDunuyqpW3aKTiuuAkD
+5mez0StfPEr+/1c//xmZKEqB+TavfZLMgHQ0ocYwEf/Q+UpsCNyz5XaVBX0UR8BG
+I9aUAht7Uwq07qWjr72UTGiIm7Xh319rXC5LDQbj0c9lSCFcWy53oQylFbVK7GBv
+CYCszBjihYtuJY13+SS6DEChPwKBgQDsTf4pJWvF2zvVj7cbNu3B8IqpokbERQZR
+UpAoMjzaIBfMncVLy7N69lo+yxx8XDmCwyR2zv7d7m3gjKvmxyv6vJOb2QzILWLg
+Kxd0OU5rTlDDQvdNpB9XCnVGj5OZrPrn1+lMa1HsVdrrYVTRSTGNhNgkVD4afGdQ
+rZJ+M6+czQKBgE/gXzTYX6dxuQmzjUEC9Z/Z2vzsP+aQLvK7QCRmulo7xDSGgod2
+UG/131PkEpAvgtwbM1X87+7+gVoykohoIsI02mIz8BeU81mR0JI96ZghF4desKBN
+oSl6WN4WM6ihtpkl5K4i+Qqh86f67GT+91XglEvvjDb41xxcCBFHXLMdAoGBAOUG
+WlVKvX+QEhfUKGWqARm8psfuTaQgOhVLbghnWG8YN7jLGNNzZErCxYiilsM5J0xD
+Ee5MhNxYIApIjLspQsjLSEz+OtMwmeomGZ89g3Gg/8mf98w6S12y9yMiOK3y52MY
+8jZstYPXWkxTkz8cL3i3zjy3oVFOTVv2PksukP/pAoGBAM81Ae6NGqTcf15p68ji
+MHZBRibuociye8ULwgfDHein7LMDYJJ69iIYzrCniLn7+MAkquFEa9RfyoPsKhpR
+O03Ga7sreZl83lT82BEao08PyP6/ejXeJIk8jHJjTbwlXYv/rqelhUr9Ow9JBO7I
+aOGsJgUN1ALULbsKE/aucOFt
+-----END PRIVATE KEY-----
+"""
+FRONTEND_BASE_URL = "https://tutor_khata.com"
 HEADLESS_ONLY = True
-HEADLESS_TOKEN_STRATEGY = "ranker.authentication.tokens.SessionTokenStrategy"
+HEADLESS_TOKEN_STRATEGY = "tutor_khata.authentication.tokens.SessionTokenStrategy"
 HEADLESS_FRONTEND_URLS = {
     "account_confirm_email": FRONTEND_BASE_URL + "/account/verify-email/{key}",
     "account_reset_password_from_key": FRONTEND_BASE_URL
@@ -303,47 +263,11 @@ HEADLESS_FRONTEND_URLS = {
 }
 
 
-# Command Scheduler
-
-SCHEDULED_COMMANDS = [
-    {
-        "enabled": True,
-        "schedule": ScheduleType.DAILY,
-        "command": "update_ranking",
-        "args": args(chunk=1000),
-    },
-    {
-        "enabled": True,
-        "schedule": ScheduleType.DAILY,
-        "command": "remove_expired_challenges",
-        "args": args(chunk=1000),
-    },
-    {
-        "enabled": True,
-        "schedule": ScheduleType.DAILY,
-        "command": "reset_repeated_challenges",
-        "args": args("daily", chunk=1000),
-    },
-    {
-        "enabled": True,
-        "schedule": ScheduleType.WEEKLY,
-        "task": "reset_repeated_challenges",
-        "args": args("weekly", chunk=1000),
-    },
-    {
-        "enabled": True,
-        "schedule": ScheduleType.MONTHLY,
-        "task": "reset_repeated_challenges",
-        "args": args("monthly", chunk=1000),
-    },
-]
-
-# Ranker
-
-# ranker.docs
+# Tutor Khata
+# tutor_khata.docs
 SCHEMA_DIR = STATIC_ROOT / "docs"
 
-# ranker.users
+# tutor_khata.users
 USERNAME_MAX_LENGTH = 35
 USERNAME_MAX_SUGGESTIONS = 3
 USERNAME_GENERATION_MAX_ATTEMPTS = 10

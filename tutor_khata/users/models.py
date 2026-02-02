@@ -17,8 +17,8 @@ from phonenumber_field.modelfields import (
     PhoneNumberField,
 )
 from dirtyfields import DirtyFieldsMixin
-from ranker.common.utils import LazyProxy
-from ranker.accounts.utils import generate_name_from_username
+from tutor_khata.common.utils import LazyProxy
+from tutor_khata.accounts.utils import generate_name_from_username
 from .utils import calculate_level
 
 

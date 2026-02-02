@@ -1,8 +1,8 @@
 from django.test import TestCase, tag
-from ranker.users.permissions import (
+from tutor_khata.users.permissions import (
     DeleteUserPermission,
 )
-from ranker.users.factories import (
+from tutor_khata.users.factories import (
     UserFactory,
 )
 

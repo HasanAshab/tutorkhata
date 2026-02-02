@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class AccountsConfig(AppConfig):
+class DocsConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "ranker.users"
+    name = "tutor_khata.docs"

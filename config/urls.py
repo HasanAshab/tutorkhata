@@ -13,7 +13,7 @@ def handler404(request, exception=None):
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("ranker.urls")),
+    path("", include("tutor_khata.urls")),
 ]
 
 

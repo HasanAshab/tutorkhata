@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
-  title: Ranker
+  title: Tutor Khata
   version: 1.0.0
-  description: The api documentation of Ranker-API
+  description: The api documentation of Tutor Khata-API
 paths:
   /api/account/:
     get:
