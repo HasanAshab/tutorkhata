@@ -1,20 +1,14 @@
 import re
 from django.conf import settings
 from rest_framework import serializers
-from tutor_khata.common.utils import (
-    twilio_verification,
-)
 from tutor_khata.users.models import User
 from tutor_khata.users.mixins import UserAvatarLinkSerializerMixin
-from tutor_khata.level_titles.serializers import LevelTitleSerializer
 
 
 class ProfileSerializer(
     UserAvatarLinkSerializerMixin,
     serializers.ModelSerializer,
 ):
-    level_title = LevelTitleSerializer(read_only=True)
-
     class Meta:
         model = User
         fields = (
@@ -49,43 +43,32 @@ class ProfileSerializer(
         extra_kwargs = {"avatar": {"write_only": True}}
 
 
-class SuggestUsernameSerializer(serializers.Serializer):
-    prefix = serializers.CharField(required=False)
-    max_suggestions = serializers.IntegerField(
-        max_value=settings.USERNAME_MAX_SUGGESTIONS,
-        default=settings.USERNAME_MAX_SUGGESTIONS,
-    )
+# class PhoneNumberSerializer(serializers.ModelSerializer):
+#     otp = serializers.CharField(required=False)
 
-    def clean_prefix(self, prefix):
-        return re.sub(r"[^a-zA-Z0-9@/.\+\-_]", "", prefix)
+#     class Meta:
+#         model = User
+#         fields = ("phone_number", "otp")
+#         extra_kwargs = {"phone_number": {"required": True}}
 
+#     def validate_phone_number(self, phone_number):
+#         if phone_number == self.instance.phone_number:
+#             msg = "Phone number can't be same as old one."
+#             raise serializers.ValidationError(msg)
+#         return phone_number
 
-class PhoneNumberSerializer(serializers.ModelSerializer):
-    otp = serializers.CharField(required=False)
+#     def validate_otp(self, otp):
+#         phone_number = self.initial_data["phone_number"]
+#         if not twilio_verification.is_valid(phone_number, otp):
+#             raise serializers.ValidationError("Invalid OTP code.")
+#         return otp
 
-    class Meta:
-        model = User
-        fields = ("phone_number", "otp")
-        extra_kwargs = {"phone_number": {"required": True}}
-
-    def validate_phone_number(self, phone_number):
-        if phone_number == self.instance.phone_number:
-            msg = "Phone number can't be same as old one."
-            raise serializers.ValidationError(msg)
-        return phone_number
-
-    def validate_otp(self, otp):
-        phone_number = self.initial_data["phone_number"]
-        if not twilio_verification.is_valid(phone_number, otp):
-            raise serializers.ValidationError("Invalid OTP code.")
-        return otp
-
-    def update(self, instance, validated_data):
-        phone_number = validated_data.get("phone_number")
-        otp = validated_data.get("otp")
-        if not otp:
-            twilio_verification.send_through_sms(phone_number)
-            return instance
-        instance.phone_number = phone_number
-        instance.save()
-        return instance
+#     def update(self, instance, validated_data):
+#         phone_number = validated_data.get("phone_number")
+#         otp = validated_data.get("otp")
+#         if not otp:
+#             twilio_verification.send_through_sms(phone_number)
+#             return instance
+#         instance.phone_number = phone_number
+#         instance.save()
+#         return instance

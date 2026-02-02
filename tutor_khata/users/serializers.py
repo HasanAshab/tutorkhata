@@ -1,7 +1,6 @@
 from django.urls import reverse
 from rest_framework import serializers
 from drf_spectacular.utils import extend_schema_field, inline_serializer
-from tutor_khata.level_titles.serializers import LevelTitleSerializer
 from .models import User
 from .mixins import UserAvatarLinkSerializerMixin
 
@@ -10,8 +9,6 @@ class UserListSerializer(
     UserAvatarLinkSerializerMixin,
     serializers.ModelSerializer,
 ):
-    level_title = LevelTitleSerializer()
-
     class Meta:
         model = User
         fields = (
@@ -51,8 +48,6 @@ class UserDetailsSerializer(
     UserAvatarLinkSerializerMixin,
     serializers.ModelSerializer,
 ):
-    level_title = LevelTitleSerializer()
-
     class Meta:
         model = User
         fields = (

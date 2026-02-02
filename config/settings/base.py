@@ -56,7 +56,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "corsheaders",
-    # "phonenumber_field",
+    "phonenumber_field",
     "rest_framework",
     "rest_framework.authtoken",
     "drf_spectacular",
@@ -211,9 +211,8 @@ SPECTACULAR_SETTINGS = {
 
 # All-Auth
 ACCOUNT_LOGIN_METHODS = {"phone"}
-ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_SIGNUP_FIELDS = ["phone_number*", "password1*"]
 ACCOUNT_EMAIL_VERIFICATION = "none"
-ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 # MFA_TOTP_ISSUER = "Tutor Khata"
 
 # All-Auth : Headless
