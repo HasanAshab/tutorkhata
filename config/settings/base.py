@@ -194,6 +194,9 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 15,
     # Test
     "TEST_REQUEST_DEFAULT_FORMAT": "json",
+
+    # Schema
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 # Api Docs
@@ -209,11 +212,13 @@ SPECTACULAR_SETTINGS = {
     "SCHEMA_PATH_PREFIX": r"/api/",
 }
 
+
 # All-Auth
 ACCOUNT_LOGIN_METHODS = {"phone"}
-ACCOUNT_SIGNUP_FIELDS = ["phone_number*", "password1*"]
+ACCOUNT_SIGNUP_FIELDS = ["phone*", "password1*"]
 ACCOUNT_EMAIL_VERIFICATION = "none"
 # MFA_TOTP_ISSUER = "Tutor Khata"
+ACCOUNT_PHONE_VERIFICATION_ENABLED = False
 
 # All-Auth : Headless
 HEADLESS_JWT_PRIVATE_KEY = """
@@ -248,7 +253,7 @@ aOGsJgUN1ALULbsKE/aucOFt
 """
 FRONTEND_BASE_URL = "https://tutor_khata.com"
 HEADLESS_ONLY = True
-HEADLESS_TOKEN_STRATEGY = "tutor_khata.authentication.tokens.SessionTokenStrategy"
+# HEADLESS_TOKEN_STRATEGY = "tutor_khata.authentication.tokens.SessionTokenStrategy"
 HEADLESS_FRONTEND_URLS = {
     "account_confirm_email": FRONTEND_BASE_URL + "/account/verify-email/{key}",
     "account_reset_password_from_key": FRONTEND_BASE_URL

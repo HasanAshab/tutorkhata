@@ -6,7 +6,6 @@ from django.urls import reverse
 
 @tag("account", "suggest_username")
 class SuggestUsernameViewTestCase(APITestCase):
-    fixtures = ["level_titles"]
     url = reverse("suggest_username")
 
     def test_suggest_username(self):

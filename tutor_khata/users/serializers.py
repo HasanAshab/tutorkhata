@@ -14,9 +14,6 @@ class UserListSerializer(
         fields = (
             "id",
             "name",
-            "username",
-            "level",
-            "level_title",
             "links",
         )
 
@@ -52,16 +49,11 @@ class UserDetailsSerializer(
         model = User
         fields = (
             "id",
-            "username",
             "name",
             "gender",
             "avatar",
             "date_joined",
             "is_superuser",
             "is_staff",
-            "total_xp",
-            "level",
-            "level_title",
-            "rank",
             "links",
         )

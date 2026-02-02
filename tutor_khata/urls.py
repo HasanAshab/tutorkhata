@@ -14,4 +14,8 @@ urlpatterns = [
         "api/",
         include("tutor_khata.users.urls"),
     ),
+    path(
+        "api/_allauth/",
+        include("allauth.headless.urls"),
+    ),
 ]

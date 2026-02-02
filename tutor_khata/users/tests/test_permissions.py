@@ -9,7 +9,6 @@ from tutor_khata.users.factories import (
 
 @tag("users", "permissions")
 class DeleteUserPermissionTestCase(TestCase):
-    fixtures = ["level_titles"]
     permission = DeleteUserPermission()
 
     def test_user_can_delete_own_account(

@@ -14,7 +14,6 @@ from phonenumber_field.modelfields import (
     PhoneNumberField,
 )
 from tutor_khata.common.utils import LazyProxy
-from .utils import calculate_level
 
 
 class UserModel(AbstractUser):
