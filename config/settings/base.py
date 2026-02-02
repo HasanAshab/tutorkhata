@@ -56,10 +56,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "corsheaders",
-    "notifications",
-    "django_filters",
-    "django_extensions",
-    "phonenumber_field",
+    # "phonenumber_field",
     "rest_framework",
     "rest_framework.authtoken",
     "drf_spectacular",
@@ -213,12 +210,9 @@ SPECTACULAR_SETTINGS = {
 }
 
 # All-Auth
-ACCOUNT_AUTHENTICATION_METHOD = "username_email"
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = "optional"
-ACCOUNT_CHANGE_EMAIL = True
-ACCOUNT_EMAIL_NOTIFICATIONS = True
-ACCOUNT_USERNAME_MIN_LENGTH = 3
+ACCOUNT_LOGIN_METHODS = {"phone"}
+ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 # MFA_TOTP_ISSUER = "Tutor Khata"
 
