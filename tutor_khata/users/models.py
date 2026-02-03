@@ -18,7 +18,7 @@ from tutor_khata.common.utils import LazyProxy
 
 class UserModel(AbstractUser):    
     USERNAME_FIELD = "phone_number"
-
+    REQUIRED_FIELDS = []
     first_name = None
     last_name = None
 
