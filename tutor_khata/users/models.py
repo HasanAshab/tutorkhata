@@ -40,6 +40,11 @@ class UserModel(AbstractUser):
         unique=True,
         help_text=_("Phone number of the user")
     )
+    phone_number_verified = models.BooleanField(
+        _("Phone Number Verified"),
+        default=False,
+        help_text=_("Phone number of the user"),
+    )
     avatar = models.ImageField(
         _("Avatar"),
         upload_to="uploads/avatars/",

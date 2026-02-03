@@ -42,7 +42,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1"]
 INTERNAL_IPS = ["127.0.0.1"]
-
+APPEND_SLASH = False
 
 # Application definition
 DJANGO_APPS = [
@@ -216,50 +216,20 @@ SPECTACULAR_SETTINGS = {
 # All-Auth
 ACCOUNT_LOGIN_METHODS = {"phone"}
 ACCOUNT_SIGNUP_FIELDS = ["phone*", "password1*"]
-ACCOUNT_EMAIL_VERIFICATION = "none"
-# MFA_TOTP_ISSUER = "Tutor Khata"
 ACCOUNT_PHONE_VERIFICATION_ENABLED = False
+ACCOUNT_ADAPTER = "tutor_khata.users.adapter.AccountAdapter"
+# MFA_TOTP_ISSUER = "Tutor Khata"
+ACCOUNT_EMAIL_VERIFICATION = "none"
 
 # All-Auth : Headless
-HEADLESS_JWT_PRIVATE_KEY = """
------BEGIN PRIVATE KEY-----
-MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDcQzTiiPurrlbJ
-coP8crbl0HLBvZFpbo2X0N+qQfa6HXWmoybl1DreHaqaXuo4tU+7nQ0jel2Lr/3K
-N/vcD/D8SAFyBDL9OZyDVUtIjML45kozPopKEC3j2T12oGhN33IOsB/H6EZF04it
-aLSP0ZYhMfpxzuHZosrkHD1mdq8daFDkr+Ht3+Zw5nEPJepOESOa6OqW7YPk3EG1
-Qgc8H7xPWDHXen890ZQbNVjlNkeu03rXcf2AAgQzK2XBmJbpzzoTJFPEG6COrRjC
-WUFmQ02WHQuKRULMklX3tGuU0GdF69NERL1UBjg+Wdrgnu6gBKx3r6+nmFP5/pvb
-U8L5FINzAgMBAAECggEAS+JBjYw4/HBPSQ7RZv9UgL98UcAQIV0rnfKhpAQezwcI
-OfU6mPKxp0VcOdvaYNgiVJYqaR8mrFHhIzJ/bFT3psrd6JyGvpQDFoIjsiaAo4Sf
-aqEwvoxtavK0iLKBzNZe8q19/X7J+xOCIpAQqP3BdcVErcHjMHoz4TvTcYIRGZVr
-rgVvNeTbDVCAjT/GLY9zOQGdH0lJB2IuPdm/tZWsC+HzgRHvGnH4HqrtaAYfKHbN
-3kEr9mGCxuJaJXPoPpbfrfTH/+1pEv2dqVd1yvK/kBiVhlf5lGzU9bobyG54gmLH
-vNicNzIMuNEsiErGuK/fUPbdrC4DA107LQSDjH5xBQKBgQDunuyqpW3aKTiuuAkD
-5mez0StfPEr+/1c//xmZKEqB+TavfZLMgHQ0ocYwEf/Q+UpsCNyz5XaVBX0UR8BG
-I9aUAht7Uwq07qWjr72UTGiIm7Xh319rXC5LDQbj0c9lSCFcWy53oQylFbVK7GBv
-CYCszBjihYtuJY13+SS6DEChPwKBgQDsTf4pJWvF2zvVj7cbNu3B8IqpokbERQZR
-UpAoMjzaIBfMncVLy7N69lo+yxx8XDmCwyR2zv7d7m3gjKvmxyv6vJOb2QzILWLg
-Kxd0OU5rTlDDQvdNpB9XCnVGj5OZrPrn1+lMa1HsVdrrYVTRSTGNhNgkVD4afGdQ
-rZJ+M6+czQKBgE/gXzTYX6dxuQmzjUEC9Z/Z2vzsP+aQLvK7QCRmulo7xDSGgod2
-UG/131PkEpAvgtwbM1X87+7+gVoykohoIsI02mIz8BeU81mR0JI96ZghF4desKBN
-oSl6WN4WM6ihtpkl5K4i+Qqh86f67GT+91XglEvvjDb41xxcCBFHXLMdAoGBAOUG
-WlVKvX+QEhfUKGWqARm8psfuTaQgOhVLbghnWG8YN7jLGNNzZErCxYiilsM5J0xD
-Ee5MhNxYIApIjLspQsjLSEz+OtMwmeomGZ89g3Gg/8mf98w6S12y9yMiOK3y52MY
-8jZstYPXWkxTkz8cL3i3zjy3oVFOTVv2PksukP/pAoGBAM81Ae6NGqTcf15p68ji
-MHZBRibuociye8ULwgfDHein7LMDYJJ69iIYzrCniLn7+MAkquFEa9RfyoPsKhpR
-O03Ga7sreZl83lT82BEao08PyP6/ejXeJIk8jHJjTbwlXYv/rqelhUr9Ow9JBO7I
-aOGsJgUN1ALULbsKE/aucOFt
------END PRIVATE KEY-----
-"""
-FRONTEND_BASE_URL = "https://tutor_khata.com"
+
+FRONTEND_BASE_URL = "https://tutorkhata.com"
 HEADLESS_ONLY = True
-# HEADLESS_TOKEN_STRATEGY = "tutor_khata.authentication.tokens.SessionTokenStrategy"
 HEADLESS_FRONTEND_URLS = {
     "account_confirm_email": FRONTEND_BASE_URL + "/account/verify-email/{key}",
     "account_reset_password_from_key": FRONTEND_BASE_URL
     + "/account/password/reset/{key}",
 }
-
 
 # Tutor Khata
 # tutor_khata.docs
