@@ -227,6 +227,7 @@ ACCOUNT_ADAPTER = "tutor_khata.users.adapter.AccountAdapter"
 ACCOUNT_USER_MODEL_EMAIL_FIELD = None
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_PASSWORD_RESET_BY_CODE_ENABLED = True
 
 
 # All-Auth : Headless
@@ -234,7 +235,6 @@ ACCOUNT_SESSION_REMEMBER = True
 FRONTEND_BASE_URL = "https://tutorkhata.com"
 HEADLESS_ONLY = True
 HEADLESS_FRONTEND_URLS = {
-    "account_confirm_email": FRONTEND_BASE_URL + "/account/verify-email/{key}",
     "account_reset_password_from_key": FRONTEND_BASE_URL
     + "/account/password/reset/{key}",
 }

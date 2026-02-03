@@ -12,8 +12,7 @@ class AccountAdapter(DefaultAccountAdapter):
         user.save()
 
     def set_phone_verified(self, user, phone):
-        if (user.phone_number != phone):
-            return
+        user.phone_number = phone
         user.phone_number_verified = True
         user.save()
 
@@ -25,8 +24,4 @@ class AccountAdapter(DefaultAccountAdapter):
             return None
 
     def send_verification_code_sms(self, user, phone, code, **kwargs):
-        # integrate your SMS provider here
-        with open("verification_code.txt", "w") as f:
-            f.write(
-                f"Your code is: {code}"
-        )
+        print("Sending SMS to", phone, "with code", code)
