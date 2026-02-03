@@ -6,9 +6,6 @@ from rest_framework.generics import (
     RetrieveDestroyAPIView,
 )
 from rest_framework import filters
-from allauth.headless.contrib.rest_framework.authentication import (
-    XSessionTokenAuthentication,
-)
 from .models import User
 from .permissions import DeleteUserPermission
 from .serializers import (
@@ -19,7 +16,6 @@ from .pagination import UserCursorPagination
 
 
 class UsersView(ListAPIView):
-    authentication_classes = (XSessionTokenAuthentication,)
     permission_classes = (IsAuthenticated,)
     filter_backends = (filters.SearchFilter,)
     queryset = User.objects.all()

@@ -25,15 +25,9 @@ class UserModel(AbstractUser):
 
     first_name = None
     last_name = None
+
     name = models.CharField(
         _("Name"), max_length=255, blank=True, help_text=_("Name of the user")
-    )
-    gender = models.CharField(
-        _("Gender"),
-        max_length=6,
-        choices=Gender,
-        default=Gender.MALE,
-        help_text=_("Gender of the user"),
     )
     phone_number = PhoneNumberField(
         _("Phone Number"),
@@ -57,7 +51,7 @@ class UserModel(AbstractUser):
         db_table = "users"
 
     def __str__(self):
-        return f"{self.name}"
+        return self.name or self.phone_number
 
 
 User: UserModel = LazyProxy(get_user_model)

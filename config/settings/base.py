@@ -196,7 +196,12 @@ REST_FRAMEWORK = {
     "TEST_REQUEST_DEFAULT_FORMAT": "json",
 
     # Schema
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    
+    # Authentication
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "allauth.headless.contrib.rest_framework.authentication.XSessionTokenAuthentication",
+    ],
 }
 
 # Api Docs

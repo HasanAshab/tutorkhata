@@ -27,7 +27,7 @@ import requests
 
 session = "cszb7e48nd9spuwy84au7nc3fk1g0ork"
 response = requests.get(
-    "http://127.0.0.1:8000/api/users/",
+    "http://127.0.0.1:8000/api/account/",
     headers={
         "Content-Type": "application/json",
         "X-Session-Token": session
