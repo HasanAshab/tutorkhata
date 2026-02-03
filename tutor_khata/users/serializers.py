@@ -56,3 +56,4 @@ class UserDetailsSerializer(
             "is_staff",
             "links",
         )
+
