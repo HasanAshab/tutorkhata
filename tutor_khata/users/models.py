@@ -10,15 +10,34 @@ from django.db import models
 from django.utils.translation import (
     gettext_lazy as _,
 )
+from django.contrib.auth.models import (
+    BaseUserManager,
+)
 from phonenumber_field.modelfields import (
     PhoneNumberField,
 )
 from tutor_khata.common.utils import LazyProxy
 
 
-class UserModel(AbstractUser):    
+class UserManager(BaseUserManager):
+    def create_user(self, phone_number, password=None, **extra_fields):
+        if not phone_number:
+            raise ValueError("The Phone Number field is required")
+        user = self.model(phone_number=phone_number, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, phone_number, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        return self.create_user(phone_number, password, **extra_fields)
+
+class UserModel(AbstractUser):
     USERNAME_FIELD = "phone_number"
     REQUIRED_FIELDS = []
+
+    objects = UserManager()
     first_name = None
     last_name = None
 
@@ -47,7 +66,6 @@ class UserModel(AbstractUser):
         db_table = "users"
 
     def __str__(self):
-        return self.name or self.phone_number
-
+        return self.name or str(self.phone_number)
 
 User: UserModel = LazyProxy(get_user_model)
