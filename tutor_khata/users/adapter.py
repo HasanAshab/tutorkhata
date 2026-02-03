@@ -4,7 +4,7 @@ from .models import User
 class AccountAdapter(DefaultAccountAdapter):
 
     def get_phone(self, user):
-        return (user.phone_number, user.phone_number_verified)
+        return (str(user.phone_number), user.phone_number_verified)
 
     def set_phone(self, user, phone, verified=False):
         user.phone_number = phone
@@ -26,4 +26,7 @@ class AccountAdapter(DefaultAccountAdapter):
 
     def send_verification_code_sms(self, user, phone, code, **kwargs):
         # integrate your SMS provider here
-        print(phone, f"Your code is: {code}")
+        with open("verification_code.txt", "w") as f:
+            f.write(
+                f"Your code is: {code}"
+        )

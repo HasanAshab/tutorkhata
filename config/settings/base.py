@@ -211,7 +211,7 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
     "EXTERNAL_DOCS": {
-        "url": "https://allauth.org/docs/draft-api",
+        "url": "https://docs.allauth.org/en/dev/headless/openapi-specification/",
         "description": "Authentication",
     },
     "SCHEMA_PATH_PREFIX": r"/api/",
@@ -221,10 +221,13 @@ SPECTACULAR_SETTINGS = {
 # All-Auth
 ACCOUNT_LOGIN_METHODS = {"phone"}
 ACCOUNT_SIGNUP_FIELDS = ["phone*", "password1*"]
-ACCOUNT_PHONE_VERIFICATION_ENABLED = False
+ACCOUNT_PHONE_VERIFICATION_ENABLED = True
 ACCOUNT_ADAPTER = "tutor_khata.users.adapter.AccountAdapter"
 # MFA_TOTP_ISSUER = "Tutor Khata"
-ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_USER_MODEL_EMAIL_FIELD = None
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_SESSION_REMEMBER = True
+
 
 # All-Auth : Headless
 

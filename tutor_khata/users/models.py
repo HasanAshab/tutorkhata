@@ -40,6 +40,8 @@ class UserModel(AbstractUser):
     objects = UserManager()
     first_name = None
     last_name = None
+    username = None
+    email = None
 
     name = models.CharField(
         _("Name"), max_length=255, blank=True, help_text=_("Name of the user")
