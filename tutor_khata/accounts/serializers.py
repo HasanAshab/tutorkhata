@@ -14,7 +14,6 @@ class ProfileSerializer(
         fields = (
             "id",
             "name",
-            "gender",
             "phone_number",
             "avatar",
             "date_joined",

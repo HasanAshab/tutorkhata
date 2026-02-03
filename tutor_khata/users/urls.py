@@ -12,7 +12,7 @@ urlpatterns = [
         name="users",
     ),
     path(
-        "users/<str:username>/",
+        "users/<int:id>/",
         UserDetailsView.as_view(),
         name="user_details",
     ),

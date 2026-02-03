@@ -16,11 +16,7 @@ from phonenumber_field.modelfields import (
 from tutor_khata.common.utils import LazyProxy
 
 
-class UserModel(AbstractUser):
-    class Gender(models.TextChoices):
-        MALE = "male", _("Male")
-        FEMALE = "female", _("Female")
-    
+class UserModel(AbstractUser):    
     USERNAME_FIELD = "phone_number"
 
     first_name = None

@@ -26,13 +26,6 @@ class UsersView(ListAPIView):
 
 class UserDetailsView(RetrieveDestroyAPIView):
     permission_classes = (IsAuthenticated, DeleteUserPermission)
-    queryset = User.objects.all().select_related("level_title")
-    lookup_field = "username"
+    queryset = User.objects.all()
+    lookup_field = "id"
     serializer_class = UserDetailsSerializer
-
-    def get_object(self):
-        user = super().get_object()
-        source = self.request.query_params.get("source")
-        if source == "search" and self.request.user != user:
-            self.request.user.searches.update_or_create(searched_user=user)
-        return user

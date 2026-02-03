@@ -29,7 +29,7 @@ class UserListSerializer(
     def get_links(self, user):
         request = self.context["request"]
         profile_url = reverse(
-            "user_details", kwargs={"username": user.username}
+            "user_details", kwargs={"id": user.id}
         )
 
         if "search" in request.query_params:
@@ -50,7 +50,6 @@ class UserDetailsSerializer(
         fields = (
             "id",
             "name",
-            "gender",
             "avatar",
             "date_joined",
             "is_superuser",

@@ -12,7 +12,6 @@ class UserFactory(factory.django.DjangoModelFactory):
     email = factory.Faker("email")
     username = factory.Faker("user_name")
     name = factory.Faker("name")
-    gender = User.Gender.MALE
     plain_password = "password"
     password = factory.LazyAttribute(lambda o: make_password(o.plain_password))
 
