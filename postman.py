@@ -1,12 +1,13 @@
 import requests
 
-session = "2tqp9wyq0jldur88iwrs6n3jquoujalk"
+session = "ovhkrmwilaszedqruqtxsb46hvynffs4"
 
 # response = requests.post(
-#     "http://127.0.0.1:8000/api/_allauth/app/v1/account/phone",
+#     "http://127.0.0.1:8000/api/_allauth/app/v1/auth/phone/verify",
 #     json={
-#         "phone": "+18005550006",
+#         # "phone": "+18005550006",
 #         # "password": "haomao.12"
+#         "code": "XHH3MD"
 #     },
 #     headers={
 #         "Content-Type": "application/json",
@@ -16,16 +17,16 @@ session = "2tqp9wyq0jldur88iwrs6n3jquoujalk"
 
 
 # session = "8f217gj1f0nh3wkvq2dvrfhz7qlempy3"
-response = requests.post(
-    "http://127.0.0.1:8000/api/_allauth/app/v1/auth/phone/verify",
-    headers={
-        "Content-Type": "application/json",
-        "X-Session-Token": session
-    },
-    json={
-        "code": "3WRJK9"
-    }
-)
+# response = requests.post(
+#     "http://127.0.0.1:8000/api/_allauth/app/v1/auth/phone/verify",
+#     headers={
+#         "Content-Type": "application/json",
+#         "X-Session-Token": session
+#     },
+#     json={
+#         "code": "3WRJK9"
+#     }
+# )
 
 # response = requests.get(
 #     "http://127.0.0.1:8000/api/account/",
