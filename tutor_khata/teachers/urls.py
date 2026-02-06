@@ -1,8 +1,9 @@
 from django.urls import path
 from .views import (
     TeachersView,
-    TeacherDetailsView,
     SelfTeacherDetailsView,
+    AvailableFeeDaysView,
+    TeacherDetailsView,
 )
 
 
@@ -16,6 +17,11 @@ urlpatterns = [
         "teachers/me/",
         SelfTeacherDetailsView.as_view(),
         name="self_teacher_details",
+    ),
+    path(
+        "teachers/available_fee_days/",
+        AvailableFeeDaysView.as_view(),
+        name="available_fee_days",
     ),
     path(
         "teachers/<int:id>/",

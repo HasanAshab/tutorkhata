@@ -241,5 +241,8 @@ HEADLESS_FRONTEND_URLS = {
 }
 
 # Tutor Khata
-# tutor_khata.docs
+# docs
 SCHEMA_DIR = STATIC_ROOT / "docs"
+
+# teachers
+MAX_FEE_DAY = 25

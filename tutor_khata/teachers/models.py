@@ -31,7 +31,7 @@ class Teacher(models.Model):
         help_text=_("Day of the month to take the fee"),
         validators=[
             MinValueValidator(1),
-            MaxValueValidator(25),
+            MaxValueValidator(settings.MAX_FEE_DAY),
         ]
     )
 

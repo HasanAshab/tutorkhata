@@ -86,3 +86,9 @@ class SelfTeacherDetailsSerializer(serializers.ModelSerializer):
         if not is_day_available_for_fee(value):
             raise serializers.ValidationError("Huge number of teachers are taking fees on this day! Please choose another day.")
         return value
+
+
+class AvailableFeeDaysSerializer(serializers.Serializer):
+    days = serializers.ListField(
+        child=serializers.IntegerField(min_value=1)
+    )

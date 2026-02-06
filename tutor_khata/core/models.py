@@ -13,6 +13,20 @@ class AppSettings(models.Model):
             return AppSettings.objects.get(key=key).value
         except AppSettings.DoesNotExist:
             return default
+    
+    @staticmethod
+    def get_number(key, default=None):
+        try:
+            return int(AppSettings.get(key, default))
+        except ValueError:
+            return default
+
+    @staticmethod
+    def get_bool(key, default=None):
+        try:
+            return bool(AppSettings.get(key, default))
+        except ValueError:
+            return default
 
     @staticmethod
     def set(key, value):
@@ -24,3 +38,7 @@ class AppSettings(models.Model):
             AppSettings.objects.create(key=key, value=value)
 
         return value
+
+
+    def __str__(self):
+        return f"{self.key} = {self.value}"
