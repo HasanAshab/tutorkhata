@@ -66,11 +66,12 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "command_scheduler",
+    # "command_scheduler",
+    "tutor_khata.core",
     "tutor_khata.common",
     "tutor_khata.docs",
     "tutor_khata.accounts",
-    "tutor_khata.users",
+    "tutor_khata.teachers",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -118,7 +119,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 DEFAULT_FROM_EMAIL = "tutor_khata.noreply@gmail.com"
 
 # User Model
-AUTH_USER_MODEL = "users.UserModel"
+AUTH_USER_MODEL = "accounts.UserModel"
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -222,7 +223,7 @@ SPECTACULAR_SETTINGS = {
 ACCOUNT_LOGIN_METHODS = {"phone"}
 ACCOUNT_SIGNUP_FIELDS = ["phone*", "password1*"]
 ACCOUNT_PHONE_VERIFICATION_ENABLED = True
-ACCOUNT_ADAPTER = "tutor_khata.users.adapter.AccountAdapter"
+ACCOUNT_ADAPTER = "tutor_khata.accounts.adapter.AccountAdapter"
 # MFA_TOTP_ISSUER = "Tutor Khata"
 ACCOUNT_USER_MODEL_EMAIL_FIELD = None
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None

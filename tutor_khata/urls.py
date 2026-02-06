@@ -8,11 +8,7 @@ urlpatterns = [
     ),
     path(
         "api/",
-        include("tutor_khata.accounts.urls"),
-    ),
-    path(
-        "api/",
-        include("tutor_khata.users.urls"),
+        include("tutor_khata.teachers.urls"),
     ),
     path(
         "api/_allauth/",
