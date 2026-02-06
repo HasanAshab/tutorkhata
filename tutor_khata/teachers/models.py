@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.dispatch import receiver
 from django.utils.translation import (
@@ -26,7 +27,12 @@ class Teacher(models.Model):
     )
 
     fee_day = models.PositiveSmallIntegerField(
-        _("Fee Day"), help_text=_("Day of the month to take the fee")
+        _("Fee Day"),
+        help_text=_("Day of the month to take the fee"),
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(25),
+        ]
     )
 
     sms_tokens_count = models.PositiveSmallIntegerField(

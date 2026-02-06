@@ -4,12 +4,14 @@ from rest_framework.permissions import (
 from rest_framework.generics import (
     ListAPIView,
     RetrieveAPIView,
+    RetrieveUpdateAPIView,
 )
 from rest_framework import filters
 from .models import Teacher
 from .serializers import (
     TeacherListSerializer,
     TeacherDetailsSerializer,
+    SelfTeacherDetailsSerializer
 )
 
 
@@ -26,3 +28,11 @@ class TeacherDetailsView(RetrieveAPIView):
     queryset = Teacher.objects.all()
     lookup_field = "id"
     serializer_class = TeacherDetailsSerializer
+
+
+class SelfTeacherDetailsView(RetrieveUpdateAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = SelfTeacherDetailsSerializer
+
+    def get_object(self):
+        return self.request.user.teacher
