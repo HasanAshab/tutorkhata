@@ -5,8 +5,12 @@ from django.dispatch import receiver
 from django.utils.translation import (
     gettext_lazy as _,
 )
+from gdstorage.storage import GoogleDriveStorage
 from tutor_khata.core.models import AppSettings
 from .utils import get_best_fee_day
+
+
+gd_storage = GoogleDriveStorage()
 
 
 class Teacher(models.Model):
@@ -27,6 +31,7 @@ class Teacher(models.Model):
         upload_to="uploads/avatars/",
         max_length=100,
         blank=True,
+        storage=gd_storage,
         help_text=_("Avatar (or profile pic) of the teacher"),
     )
 

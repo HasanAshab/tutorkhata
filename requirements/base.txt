@@ -27,3 +27,4 @@ urllib3==2.6.3
 django-phonenumber-field[phonenumberslite]==8.4.0
 pillow==12.1.0
 django-allauth[headless]==65.14.0
+django-googledrive-storage==1.6.0

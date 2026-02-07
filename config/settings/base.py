@@ -63,6 +63,7 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "allauth.headless",
+    "gdstorage",
 ]
 
 LOCAL_APPS = [
@@ -238,6 +239,9 @@ HEADLESS_FRONTEND_URLS = {
     "account_reset_password_from_key": FRONTEND_BASE_URL
     + "/account/password/reset/{key}",
 }
+
+# Google Drive Storage
+GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = BASE_DIR / "gd_storage_key.json"
 
 # Tutor Khata
 # docs
