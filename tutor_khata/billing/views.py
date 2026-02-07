@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from drf_spectacular.utils import extend_schema
 
-from .models import Plan, Subscription, FeatureUsage, Feature, PlanFeature
+from .models import Plan, Subscription, FeatureUsage, Feature
 from .serializers import (
     PlanListSerializer,
     PlanDetailSerializer,
@@ -18,6 +18,7 @@ from .serializers import (
     FeatureCheckSerializer,
     FeatureSerializer,
 )
+from .utils import can_use_feature, get_feature_usage_details
 
 
 class PlansView(ListAPIView):
@@ -37,7 +38,12 @@ class PlanDetailView(RetrieveAPIView):
 class MySubscriptionView(APIView):
     permission_classes = [IsAuthenticated]
 
-    @extend_schema(responses=SubscriptionSerializer)
+    @extend_schema(
+        responses={
+            status.HTTP_200_OK: SubscriptionSerializer,
+            status.HTTP_404_NOT_FOUND: None,
+        }
+    )
     def get(self, request):
         try:
             subscription = (
@@ -59,6 +65,13 @@ class MySubscriptionView(APIView):
 class SubscriptionCreateView(APIView):
     permission_classes = [IsAuthenticated]
 
+    @extend_schema(
+        request=SubscriptionCreateSerializer,
+        responses={
+            status.HTTP_201_CREATED: SubscriptionSerializer,
+            status.HTTP_400_BAD_REQUEST: None,
+        },
+    )
     def post(self, request):
         # Check if teacher already has a subscription
         if hasattr(request.user.teacher, "subscription"):
@@ -69,8 +82,8 @@ class SubscriptionCreateView(APIView):
 
         serializer = SubscriptionCreateSerializer(data=request.data)
         if serializer.is_valid():
-            plan = serializer.validated_data["plan"]
             price = serializer.validated_data["price"]
+            plan = price.plan
 
             # Calculate trial and subscription end dates
             now = timezone.now()
@@ -104,6 +117,13 @@ class SubscriptionCreateView(APIView):
 class SubscriptionUpdateView(APIView):
     permission_classes = [IsAuthenticated]
 
+    @extend_schema(
+        request=SubscriptionUpdateSerializer,
+        responses={
+            status.HTTP_200_OK: SubscriptionSerializer,
+            status.HTTP_400_BAD_REQUEST: None,
+        },
+    )
     def patch(self, request):
         try:
             subscription = Subscription.objects.get(
@@ -129,6 +149,12 @@ class SubscriptionUpdateView(APIView):
 class SubscriptionCancelView(APIView):
     permission_classes = [IsAuthenticated]
 
+    @extend_schema(
+        responses={
+            status.HTTP_200_OK: None,
+            status.HTTP_404_NOT_FOUND: None,
+        }
+    )
     def post(self, request):
         try:
             subscription = Subscription.objects.get(
@@ -146,7 +172,7 @@ class SubscriptionCancelView(APIView):
         return Response(
             {
                 "detail": "Subscription will be cancelled"
-                " at the end of the current period"
+                "at the end of the current period"
             }
         )
 
@@ -154,6 +180,12 @@ class SubscriptionCancelView(APIView):
 class SubscriptionRenewView(APIView):
     permission_classes = [IsAuthenticated]
 
+    @extend_schema(
+        responses={
+            status.HTTP_200_OK: None,
+            status.HTTP_404_NOT_FOUND: None,
+        }
+    )
     def post(self, request):
         try:
             subscription = Subscription.objects.get(
@@ -212,27 +244,18 @@ class FeatureUsageDetailView(APIView):
             serializer = FeatureUsageSerializer(usage)
             return Response(serializer.data)
         except FeatureUsage.DoesNotExist:
+            usage_details = get_feature_usage_details(
+                request.user.teacher, feature
+            )
             return Response(
                 {
                     "feature": FeatureSerializer(feature).data,
-                    "used": 0,
-                    "monthly_limit": self._get_monthly_limit(
-                        request.user.teacher, feature
-                    ),
-                    "remaining": self._get_monthly_limit(
-                        request.user.teacher, feature
-                    ),
-                    "last_reset_at": None,
+                    "used": usage_details["used"],
+                    "monthly_limit": usage_details["monthly_limit"],
+                    "remaining": usage_details["remaining"],
+                    "last_reset_at": usage_details["last_reset_at"],
                 }
             )
-
-    def _get_monthly_limit(self, teacher, feature):
-        if hasattr(teacher, "subscription"):
-            plan_feature = PlanFeature.objects.filter(
-                plan=teacher.subscription.plan, feature=feature
-            ).first()
-            return plan_feature.monthly_limit if plan_feature else None
-        return None
 
 
 class FeatureCheckView(APIView):
@@ -246,70 +269,6 @@ class FeatureCheckView(APIView):
             )
 
         feature_code = serializer.validated_data["feature_code"]
-        feature = Feature.objects.get(code=feature_code)
-        teacher = request.user.teacher
+        result = can_use_feature(request.user.teacher, feature_code)
 
-        # Check if teacher has subscription
-        if not hasattr(teacher, "subscription"):
-            return Response(
-                {
-                    "can_use": False,
-                    "reason": "No active subscription",
-                    "feature": feature_code,
-                }
-            )
-
-        # Check if feature is in plan
-        plan_feature = PlanFeature.objects.filter(
-            plan=teacher.subscription.plan, feature=feature
-        ).first()
-
-        if not plan_feature:
-            return Response(
-                {
-                    "can_use": False,
-                    "reason": "Feature not included in your plan",
-                    "feature": feature_code,
-                }
-            )
-
-        # Check usage limit
-        if plan_feature.monthly_limit is None:
-            return Response(
-                {
-                    "can_use": True,
-                    "reason": "Unlimited usage",
-                    "feature": feature_code,
-                    "used": 0,
-                    "limit": None,
-                }
-            )
-
-        # Get current usage
-        usage = FeatureUsage.objects.filter(
-            teacher=teacher, feature=feature
-        ).first()
-        used = usage.used if usage else 0
-
-        if used >= plan_feature.monthly_limit:
-            return Response(
-                {
-                    "can_use": False,
-                    "reason": "Monthly limit reached",
-                    "feature": feature_code,
-                    "used": used,
-                    "limit": plan_feature.monthly_limit,
-                    "remaining": 0,
-                }
-            )
-
-        return Response(
-            {
-                "can_use": True,
-                "reason": "Within usage limit",
-                "feature": feature_code,
-                "used": used,
-                "limit": plan_feature.monthly_limit,
-                "remaining": plan_feature.monthly_limit - used,
-            }
-        )
+        return Response(result)

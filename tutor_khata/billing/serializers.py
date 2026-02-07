@@ -7,6 +7,7 @@ from .models import (
     Subscription,
     FeatureUsage,
 )
+from .utils import get_feature_monthly_limit, get_feature_remaining
 
 
 class FeatureSerializer(serializers.ModelSerializer):
@@ -109,27 +110,9 @@ class SubscriptionSerializer(serializers.ModelSerializer):
 
 
 class SubscriptionCreateSerializer(serializers.Serializer):
-    plan_id = serializers.IntegerField()
-    price_id = serializers.IntegerField()
-
-    def validate(self, data):
-        try:
-            plan = Plan.objects.get(id=data["plan_id"])
-        except Plan.DoesNotExist:
-            raise serializers.ValidationError({"plan_id": "Plan not found"})
-
-        try:
-            price = Price.objects.get(
-                id=data["price_id"], plan=plan, is_active=True
-            )
-        except Price.DoesNotExist:
-            raise serializers.ValidationError(
-                {"price_id": "Price not found or not active for this plan"}
-            )
-
-        data["plan"] = plan
-        data["price"] = price
-        return data
+    price = serializers.PrimaryKeyRelatedField(
+        queryset=Price.objects.select_related("plan").filter(is_active=True)
+    )
 
 
 class SubscriptionUpdateSerializer(serializers.ModelSerializer):
@@ -155,19 +138,10 @@ class FeatureUsageSerializer(serializers.ModelSerializer):
         )
 
     def get_monthly_limit(self, obj):
-        teacher = obj.teacher
-        if hasattr(teacher, "subscription"):
-            plan_feature = PlanFeature.objects.filter(
-                plan=teacher.subscription.plan, feature=obj.feature
-            ).first()
-            return plan_feature.monthly_limit if plan_feature else None
-        return None
+        return get_feature_monthly_limit(obj.teacher, obj.feature)
 
     def get_remaining(self, obj):
-        monthly_limit = self.get_monthly_limit(obj)
-        if monthly_limit is None:
-            return None
-        return max(0, monthly_limit - obj.used)
+        return get_feature_remaining(obj.teacher, obj.feature)
 
 
 class FeatureCheckSerializer(serializers.Serializer):
