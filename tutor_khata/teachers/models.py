@@ -5,6 +5,7 @@ from django.dispatch import receiver
 from django.utils.translation import (
     gettext_lazy as _,
 )
+from tutor_khata.core.fields import ImgBBImageField
 from tutor_khata.core.models import AppSettings
 from .utils import get_best_fee_day
 
@@ -22,7 +23,7 @@ class Teacher(models.Model):
         help_text=_("Name of the teacher"),
     )
 
-    avatar = models.ImageField(
+    avatar = ImgBBImageField(
         _("Avatar"),
         upload_to="uploads/avatars/",
         max_length=100,

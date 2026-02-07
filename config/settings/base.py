@@ -63,13 +63,11 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "allauth.headless",
-    "gdstorage",
 ]
 
 LOCAL_APPS = [
     # "command_scheduler",
     "tutor_khata.core",
-    "tutor_khata.common",
     "tutor_khata.docs",
     "tutor_khata.accounts",
     "tutor_khata.teachers",
@@ -166,11 +164,9 @@ MEDIA_ROOT = BASE_DIR / "uploads"
 
 # ImgBB Storage Configuration
 # Get your API key from https://api.imgbb.com/
-IMGBB_API_KEY = env("IMGBB_API_KEY", default=None)
+IMGBB_API_KEY = env("IMGBB_API_KEY")
 IMGBB_API_URL = "https://api.imgbb.com/1/upload"
-IMGBB_EXPIRATION = env.int(
-    "IMGBB_EXPIRATION", default=None
-)  # seconds (60-15552000)
+IMGBB_EXPIRATION = env.int("IMGBB_EXPIRATION", None)
 
 
 # Log

@@ -1,5 +1,3 @@
-from django.conf import settings
-from django.dispatch import receiver
 from django.contrib.auth.models import (
     AbstractUser,
 )
@@ -16,7 +14,7 @@ from django.contrib.auth.models import (
 from phonenumber_field.modelfields import (
     PhoneNumberField,
 )
-from tutor_khata.common.utils import LazyProxy
+from tutor_khata.core.utils import LazyProxy
 
 
 class UserManager(BaseUserManager):
@@ -29,9 +27,10 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, phone_number, password=None, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
         return self.create_user(phone_number, password, **extra_fields)
+
 
 class UserModel(AbstractUser):
     USERNAME_FIELD = "phone_number"
@@ -44,9 +43,7 @@ class UserModel(AbstractUser):
     email = None
 
     phone_number = PhoneNumberField(
-        _("Phone Number"),
-        unique=True,
-        help_text=_("Phone number of the user")
+        _("Phone Number"), unique=True, help_text=_("Phone number of the user")
     )
     phone_number_verified = models.BooleanField(
         _("Phone Number Verified"),
@@ -59,5 +56,6 @@ class UserModel(AbstractUser):
 
     def __str__(self):
         return str(self.phone_number)
+
 
 User: UserModel = LazyProxy(get_user_model)
