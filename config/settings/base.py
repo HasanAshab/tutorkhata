@@ -160,6 +160,18 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "static"
 
+# Media files
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "uploads"
+
+# ImgBB Storage Configuration
+# Get your API key from https://api.imgbb.com/
+IMGBB_API_KEY = env("IMGBB_API_KEY", default=None)
+IMGBB_API_URL = "https://api.imgbb.com/1/upload"
+IMGBB_EXPIRATION = env.int(
+    "IMGBB_EXPIRATION", default=None
+)  # seconds (60-15552000)
+
 
 # Log
 LOGGING = {
@@ -239,9 +251,6 @@ HEADLESS_FRONTEND_URLS = {
     "account_reset_password_from_key": FRONTEND_BASE_URL
     + "/account/password/reset/{key}",
 }
-
-# Google Drive Storage
-GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = BASE_DIR / "gd_storage_key.json"
 
 # Tutor Khata
 # docs

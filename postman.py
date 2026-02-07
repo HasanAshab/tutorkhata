@@ -28,13 +28,16 @@ session = "ovhkrmwilaszedqruqtxsb46hvynffs4"
 #     }
 # )
 
-# response = requests.get(
-#     "http://127.0.0.1:8000/api/account/",
-#     headers={
-#         "Content-Type": "application/json",
-#         "X-Session-Token": session
-#     }
-# )
+with open("teacher.jpg", "rb") as f:
+    avatar = f.read()
+response = requests.patch(
+    "http://127.0.0.1:8000/api/teachers/me/",
+    headers={
+        # "Content-Type": "application/json",
+        "X-Session-Token": session
+    },
+    files={"avatar": ("teacher.jpg", avatar)},
+)
 
 
 print("status code: " + str(response.status_code))
@@ -43,5 +46,5 @@ with open("index.html", "w", encoding="utf-8") as f:
 
 try:
     print(response.json())
-except:
+except Exception:
     print(response.text)
