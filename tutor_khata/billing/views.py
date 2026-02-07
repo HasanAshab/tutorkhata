@@ -46,12 +46,8 @@ class MySubscriptionView(APIView):
     )
     def get(self, request):
         try:
-            subscription = (
-                Subscription.objects.select_related("plan", "price")
-                .prefetch_related(
-                    "plan__price_set", "plan__planfeature_set__feature"
-                )
-                .get(teacher=request.user.teacher)
+            subscription = Subscription.objects.get(
+                teacher=request.user.teacher
             )
             serializer = SubscriptionSerializer(subscription)
             return Response(serializer.data)

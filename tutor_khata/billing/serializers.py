@@ -83,14 +83,13 @@ class PlanDetailSerializer(serializers.ModelSerializer):
 
 
 class SubscriptionSerializer(serializers.ModelSerializer):
-    plan = PlanListSerializer(read_only=True)
     price = PriceSerializer(read_only=True)
 
     class Meta:
         model = Subscription
         fields = (
             "id",
-            "plan",
+            "plan_id",
             "price",
             "trial_ends_at",
             "ends_at",

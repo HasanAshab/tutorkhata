@@ -131,6 +131,11 @@ class Price(models.Model):
         help_text=_("Whether this price is currently active"),
     )
 
+    def __str__(self):
+        return f"""
+        {self.plan} - {self.amount} {self.currency}/{self.duration_months}m
+        """
+
 
 class Subscription(models.Model):
     class Status(models.TextChoices):
