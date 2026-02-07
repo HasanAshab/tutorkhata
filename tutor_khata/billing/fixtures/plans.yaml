@@ -1,0 +1,15 @@
+- model: billing.plan
+  pk: 1
+  fields:
+    code: "BASIC"
+    name: "Basic"
+    description: "Perfect for new teachers getting started."
+    trial_months: 6
+
+- model: billing.plan
+  pk: 2
+  fields:
+    code: "PRO"
+    name: "Pro"
+    description: "Advanced features for senior teachers."
+    trial_months: 0

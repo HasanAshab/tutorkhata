@@ -1,0 +1,106 @@
+# =========================
+# Core Classroom Management
+# =========================
+
+- model: billing.feature
+  pk: 1
+  fields:
+    code: "student_management"
+    name: "Effortless Student & Batch Management"
+
+- model: billing.feature
+  pk: 2
+  fields:
+    code: "class_scheduling"
+    name: "Smart Class Scheduling with Student Notifications"
+
+- model: billing.feature
+  pk: 3
+  fields:
+    code: "exam_management"
+    name: "Exam Management with Result Notifications to Parents"
+
+
+# =========================
+# Fees & Payments
+# =========================
+
+- model: billing.feature
+  pk: 4
+  fields:
+    code: "fee_management"
+    name: "Complete Fee Tracking (Cash & Online Payments)"
+
+- model: billing.feature
+  pk: 5
+  fields:
+    code: "fee_reminders"
+    name: "Automatic Fee Reminder SMS to Parents"
+
+
+# =========================
+# Communication & SMS
+# =========================
+
+- model: billing.feature
+  pk: 6
+  fields:
+    code: "custom_notifications"
+    name: "Send Personalized SMS to Parents Anytime"
+
+- model: billing.feature
+  pk: 7
+  fields:
+    code: "sms_recharge"
+    name: "Monthly Free SMS Credits Included"
+
+
+# =========================
+# Attendance & Monitoring
+# =========================
+
+- model: billing.feature
+  pk: 8
+  fields:
+    code: "auto_attendance"
+    name: "Automatic Attendance with Absence Alerts to Parents"
+
+
+# =========================
+# Analytics & Insights
+# =========================
+
+- model: billing.feature
+  pk: 9
+  fields:
+    code: "basic_dashboard"
+    name: "Clear Performance & Fee Overview Dashboard"
+
+- model: billing.feature
+  pk: 10
+  fields:
+    code: "advanced_dashboard"
+    name: "Advanced Analytics with AI-Powered Insights"
+
+
+# =========================
+# AI-Powered Productivity
+# =========================
+
+- model: billing.feature
+  pk: 11
+  fields:
+    code: "ai_question_papers"
+    name: "Create Question Papers Instantly Using AI"
+
+- model: billing.feature
+  pk: 12
+  fields:
+    code: "ai_schedule_optimizer"
+    name: "AI-Optimized Class Schedules to Save Time"
+
+- model: billing.feature
+  pk: 13
+  fields:
+    code: "ai_data_migration"
+    name: "Convert Paper Records to Digital Using AI"

@@ -1,0 +1,55 @@
+# Pricing for Basic Plan
+- model: billing.price
+  pk: 1
+  fields:
+    plan: 1
+    amount: 50000  # 500$ in cents
+    currency: "USD"
+    duration_months: 1
+    is_active: true
+
+- model: billing.price
+  pk: 2
+  fields:
+    plan: 1
+    amount: 250000  # 2500$ in cents
+    currency: "USD"
+    duration_months: 6
+    is_active: true
+
+- model: billing.price
+  pk: 3
+  fields:
+    plan: 1
+    amount: 450000  # 4500$ in cents
+    currency: "USD"
+    duration_months: 12
+    is_active: true
+
+# Pricing for Pro Plan
+- model: billing.price
+  pk: 4
+  fields:
+    plan: 2
+    amount: 200000  # 2000$ in cents
+    currency: "USD"
+    duration_months: 1
+    is_active: true
+
+- model: billing.price
+  pk: 5
+  fields:
+    plan: 2
+    amount: 1000000  # 10000$ in cents
+    currency: "USD"
+    duration_months: 6
+    is_active: true
+
+- model: billing.price
+  pk: 6
+  fields:
+    plan: 2
+    amount: 1800000  # 18000$ in cents
+    currency: "USD"
+    duration_months: 12
+    is_active: true
