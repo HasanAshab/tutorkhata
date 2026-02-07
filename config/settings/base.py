@@ -72,6 +72,8 @@ LOCAL_APPS = [
     "tutor_khata.docs",
     "tutor_khata.accounts",
     "tutor_khata.teachers",
+    "tutor_khata.billing",
+    # "tutor_khata.referrals",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -107,7 +109,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                'django.template.context_processors.request',
+                "django.template.context_processors.request",
             ],
         },
     },
@@ -190,15 +192,12 @@ REST_FRAMEWORK = {
     # API Versioning
     "DEFAULT_VERSION": "v1",
     "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.AcceptHeaderVersioning",
-
     # Pagination
     "PAGE_SIZE": 15,
     # Test
     "TEST_REQUEST_DEFAULT_FORMAT": "json",
-
     # Schema
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    
     # Authentication
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "allauth.headless.contrib.rest_framework.authentication.XSessionTokenAuthentication",
