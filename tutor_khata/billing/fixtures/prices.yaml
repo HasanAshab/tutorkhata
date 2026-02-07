@@ -3,8 +3,8 @@
   pk: 1
   fields:
     plan: 1
-    amount: 50000  # 500$ in cents
-    currency: "USD"
+    amount: 500
+    currency: "BDT"
     duration_months: 1
     is_active: true
 
@@ -12,8 +12,8 @@
   pk: 2
   fields:
     plan: 1
-    amount: 250000  # 2500$ in cents
-    currency: "USD"
+    amount: 2500
+    currency: "BDT"
     duration_months: 6
     is_active: true
 
@@ -21,8 +21,8 @@
   pk: 3
   fields:
     plan: 1
-    amount: 450000  # 4500$ in cents
-    currency: "USD"
+    amount: 4500
+    currency: "BDT"
     duration_months: 12
     is_active: true
 
@@ -31,8 +31,8 @@
   pk: 4
   fields:
     plan: 2
-    amount: 200000  # 2000$ in cents
-    currency: "USD"
+    amount: 2000
+    currency: "BDT"
     duration_months: 1
     is_active: true
 
@@ -40,8 +40,8 @@
   pk: 5
   fields:
     plan: 2
-    amount: 1000000  # 10000$ in cents
-    currency: "USD"
+    amount: 10000
+    currency: "BDT"
     duration_months: 6
     is_active: true
 
@@ -49,7 +49,7 @@
   pk: 6
   fields:
     plan: 2
-    amount: 1800000  # 18000$ in cents
-    currency: "USD"
+    amount: 18000
+    currency: "BDT"
     duration_months: 12
     is_active: true

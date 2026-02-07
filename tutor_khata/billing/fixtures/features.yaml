@@ -73,14 +73,14 @@
 - model: billing.feature
   pk: 9
   fields:
-    code: "basic_dashboard"
+    code: "dashboard"
     name: "Clear Performance & Fee Overview Dashboard"
 
 - model: billing.feature
   pk: 10
   fields:
-    code: "advanced_dashboard"
-    name: "Advanced Analytics with AI-Powered Insights"
+    code: "ai_insights"
+    name: "AI-Powered Insights for Better Decision Making"
 
 
 # =========================
@@ -95,12 +95,6 @@
 
 - model: billing.feature
   pk: 12
-  fields:
-    code: "ai_schedule_optimizer"
-    name: "AI-Optimized Class Schedules to Save Time"
-
-- model: billing.feature
-  pk: 13
   fields:
     code: "ai_data_migration"
     name: "Convert Paper Records to Digital Using AI"

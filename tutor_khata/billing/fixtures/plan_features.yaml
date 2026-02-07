@@ -1,128 +1,147 @@
-# Basic Plan Features (with limits)
+# =========================
+# BASIC PLAN FEATURES
+# =========================
+
 - model: billing.planfeature
   pk: 1
   fields:
-    plan: 1
-    feature: 1
-    monthly_limit: 50  # Max 50 students
+    plan: 1  # Basic Plan
+    feature: 1  # student_management
+    monthly_limit: null
 
 - model: billing.planfeature
   pk: 2
   fields:
-    plan: 1
-    feature: 2
-    monthly_limit: 100  # Max 100 scheduled classes per month
+    plan: 1  # Basic Plan
+    feature: 2  # class_scheduling
+    monthly_limit: null
 
 - model: billing.planfeature
   pk: 3
   fields:
-    plan: 1
-    feature: 3
-    monthly_limit: null  # Unlimited basic attendance
+    plan: 1  # Basic Plan
+    feature: 4  # fee_management
+    monthly_limit: null
 
 - model: billing.planfeature
   pk: 4
   fields:
-    plan: 1
-    feature: 4
-    monthly_limit: 10  # Max 10 progress reports per month
+    plan: 1  # Basic Plan
+    feature: 5  # fee_reminders
+    monthly_limit: null
 
 - model: billing.planfeature
   pk: 5
   fields:
-    plan: 1
-    feature: 5
-    monthly_limit: null  # Unlimited payment tracking
+    plan: 1  # Basic Plan
+    feature: 7  # sms_recharge
+    monthly_limit: 50
 
 - model: billing.planfeature
   pk: 6
   fields:
-    plan: 1
-    feature: 6
-    monthly_limit: 50  # Max 50 notifications per month
+    plan: 1  # Basic Plan
+    feature: 9  # dashboard
+    monthly_limit: null
 
-# Pro Plan Features (unlimited or higher limits)
 - model: billing.planfeature
   pk: 7
   fields:
-    plan: 2
-    feature: 1
-    monthly_limit: null  # Unlimited students
+    plan: 1  # Basic Plan
+    feature: 11  # ai_question_papers
+    monthly_limit: 1
 
 - model: billing.planfeature
   pk: 8
   fields:
-    plan: 2
-    feature: 2
-    monthly_limit: null  # Unlimited scheduling
+    plan: 1  # Basic Plan
+    feature: 12  # ai_data_migration
+    monthly_limit: 2
+
+# =========================
+# PRO PLAN FEATURES
+# =========================
 
 - model: billing.planfeature
   pk: 9
   fields:
-    plan: 2
-    feature: 3
-    monthly_limit: null  # Unlimited basic attendance
+    plan: 2  # Pro Plan
+    feature: 1  # student_management
+    monthly_limit: null
 
 - model: billing.planfeature
   pk: 10
   fields:
-    plan: 2
-    feature: 4
-    monthly_limit: null  # Unlimited progress reports
+    plan: 2  # Pro Plan
+    feature: 2  # class_scheduling
+    monthly_limit: null
 
 - model: billing.planfeature
   pk: 11
   fields:
-    plan: 2
-    feature: 5
-    monthly_limit: null  # Unlimited payment tracking
+    plan: 2  # Pro Plan
+    feature: 3  # exam_management
+    monthly_limit: null
 
 - model: billing.planfeature
   pk: 12
   fields:
-    plan: 2
-    feature: 6
-    monthly_limit: null  # Unlimited notifications
+    plan: 2  # Pro Plan
+    feature: 4  # fee_management
+    monthly_limit: null
 
-# Pro-exclusive features
 - model: billing.planfeature
   pk: 13
   fields:
-    plan: 2
-    feature: 7
-    monthly_limit: 500  # 500 AI-generated questions per month
+    plan: 2  # Pro Plan
+    feature: 5  # fee_reminders
+    monthly_limit: null
 
 - model: billing.planfeature
   pk: 14
   fields:
-    plan: 2
-    feature: 8
-    monthly_limit: null  # Unlimited auto attendance
+    plan: 2  # Pro Plan
+    feature: 6  # custom_notifications
+    monthly_limit: null
 
 - model: billing.planfeature
   pk: 15
   fields:
-    plan: 2
-    feature: 9
-    monthly_limit: 20  # 20 AI schedule optimizations per month
+    plan: 2  # Pro Plan
+    feature: 7  # sms_recharge
+    monthly_limit: 300
 
 - model: billing.planfeature
   pk: 16
   fields:
-    plan: 2
-    feature: 10
-    monthly_limit: null  # Unlimited analytics
+    plan: 2  # Pro Plan
+    feature: 8  # auto_attendance
+    monthly_limit: null
 
 - model: billing.planfeature
   pk: 17
   fields:
-    plan: 2
-    feature: 11
-    monthly_limit: 200  # 200 bulk messages per month
+    plan: 2  # Pro Plan
+    feature: 9  # dashboard
+    monthly_limit: null
 
 - model: billing.planfeature
   pk: 18
   fields:
-    plan: 2
-    feature: 12
-    monthly_limit: 50  # 50 custom reports per month
+    plan: 2  # Pro Plan
+    feature: 10  # ai_insights
+    monthly_limit: 3
+
+- model: billing.planfeature
+  pk: 19
+  fields:
+    plan: 2  # Pro Plan
+    feature: 11  # ai_question_papers
+    monthly_limit: 5
+
+- model: billing.planfeature
+  pk: 20
+  fields:
+    plan: 2  # Pro Plan
+    feature: 12  # ai_data_migration
+    monthly_limit: null
