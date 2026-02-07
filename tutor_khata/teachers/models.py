@@ -8,6 +8,7 @@ from django.utils.translation import (
 from tutor_khata.core.models import AppSettings
 from .utils import get_best_fee_day
 
+
 class Teacher(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
@@ -15,7 +16,10 @@ class Teacher(models.Model):
     )
 
     name = models.CharField(
-        _("Name"), max_length=255, blank=True, help_text=_("Name of the teacher")
+        _("Name"),
+        max_length=255,
+        blank=True,
+        help_text=_("Name of the teacher"),
     )
 
     avatar = models.ImageField(
@@ -32,7 +36,7 @@ class Teacher(models.Model):
         validators=[
             MinValueValidator(1),
             MaxValueValidator(settings.MAX_FEE_DAY),
-        ]
+        ],
     )
 
     sms_tokens_count = models.PositiveSmallIntegerField(
@@ -40,7 +44,7 @@ class Teacher(models.Model):
         help_text=_("Number of SMS tokens the teacher has"),
         default=0,
     )
-    
+
     free_sms_tokens_count = models.PositiveSmallIntegerField(
         _("Free SMS Tokens Count"),
         help_text=_("Number of Free SMS tokens the teacher has"),
@@ -57,11 +61,14 @@ class Teacher(models.Model):
     dispatch_uid="create_teacher",
 )
 def create_teacher(sender, instance, created, **kwargs):
-    if not created: return
+    if not created:
+        return
 
-    monthly_free_sms_tokens_count = AppSettings.get("monthly_free_sms_tokens_count", 0)
+    monthly_free_sms_tokens_count = AppSettings.get_number(
+        "monthly_free_sms_tokens_count", 0
+    )
     Teacher.objects.create(
         user=instance,
         fee_day=get_best_fee_day(),
-        free_sms_tokens_count=monthly_free_sms_tokens_count
+        free_sms_tokens_count=monthly_free_sms_tokens_count,
     )
